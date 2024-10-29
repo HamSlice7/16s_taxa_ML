@@ -114,5 +114,5 @@ plt.title("Frequency of the sequence of the 16S rRNA geene in Enterobacterales b
 plt.show()
 plt.close()
 
-df_bacillales.to_csv("filtered_bacillales", index=False)
-df_enterobacterales.to_csv("filtered_enterobacterales", index=False)
+df_bacillales.to_csv("filtered_bacillales.csv", index=False)
+df_enterobacterales.to_csv("filtered_enterobacterales.csv", index=False)
