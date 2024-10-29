@@ -22,7 +22,8 @@ for index, row in df_enterobacterales.iterrows():
     if row["Nucelotide Sequence"].count("N") >= (len(row["Nucelotide Sequence"]) * 0.05):
         rows_to_remove_enterobacterales.append(index)
 
-#print(len(rows_to_remove_bacillales), len(rows_to_remove_enterobacterales))
+print(f"Number of rows containing sequences with more than 5% of unknown nucleotides for df_bacillales:{len(rows_to_remove_bacillales)}")
+print(f"Number of rows containing sequences with more than 5% of unknown nucleotides for df_enterobacterales: {len(rows_to_remove_enterobacterales)}")
 
 ##Look at the distribution of the sequence lengths
 
@@ -36,23 +37,6 @@ for index, row in df_bacillales.iterrows():
 plt.hist(bacillales_sequence_lengths)
 plt.xlabel("Sequence Length")
 plt.ylabel("Count")
-plt.title("Frequency of the sequence of the 16S rRNA geene in Bacillales")
-plt.show()
-plt.close()
-
-#Enterobacterales
-enterobacterales_sequence_lengths = []
-
-
-for index, row in df_enterobacterales.iterrows():
-    enterobacterales_sequence_lengths.append(len(row["Nucelotide Sequence"]))
-
-plt.hist(enterobacterales_sequence_lengths)
-plt.xlabel("Sequence Length")
-plt.ylabel("Count")
-plt.title("Frequency of the sequence of the 16S rRNA geene in Enterobacterales")
-plt.show()
-plt.close()
 
 ##Removing rows where the sequence lengths are less than 90% than the rest and where the sequence lengths are greater than 90% of the rest
 
@@ -70,6 +54,37 @@ print(f"Dimensions of df_bacillales before filtering for sequence length:{df_bac
 df_bacillales.drop(rows_to_remove_bacillales_sequence_length, inplace=True)
 print(f"Dimensions of df_bacillales after filtering for sequence length: {df_bacillales.shape}")
 
+##Look at the distribution of the sequence lengths after filtering for unknown nucleotides and sequence length
+
+#Bacillales
+bacillales_sequence_lengths_post_filter = []
+
+
+for index, row in df_bacillales.iterrows():
+    bacillales_sequence_lengths_post_filter.append(len(row["Nucelotide Sequence"]))
+
+plt.hist(bacillales_sequence_lengths_post_filter)
+plt.title("Frequency of the sequence of the 16S rRNA gene in Bacillales before and after filtering") 
+plt.show()
+plt.close()
+
+
+##Look at the distribution of the sequence lengths
+#Enterobacterales
+enterobacterales_sequence_lengths = []
+
+
+for index, row in df_enterobacterales.iterrows():
+    enterobacterales_sequence_lengths.append(len(row["Nucelotide Sequence"]))
+
+plt.hist(enterobacterales_sequence_lengths)
+plt.xlabel("Sequence Length")
+plt.ylabel("Count")
+plt.title("Frequency of the sequence of the 16S rRNA geene in Enterobacterales")
+
+
+##Removing rows where the sequence lengths are less than 90% than the rest and where the sequence lengths are greater than 90% of the rest
+
 #Filtering Enterobacterales data frame
 rows_to_remove_enterobacterales_sequence_length = []
 
@@ -85,32 +100,19 @@ df_enterobacterales.drop(rows_to_remove_enterobacterales_sequence_length, inplac
 print(f"Dimensions of df_enterobacterales after filtering for sequence length: {df_enterobacterales.shape}")
 
 
-##Look at the distribution of the sequence lengths after filtering for unknown nucleotides and sequence length
-
-#Bacillales
-bacillales_sequence_lengths = []
-
-
-for index, row in df_bacillales.iterrows():
-    bacillales_sequence_lengths.append(len(row["Nucelotide Sequence"]))
-
-plt.hist(bacillales_sequence_lengths)
-plt.xlabel("Sequence Length")
-plt.ylabel("Count")
-plt.title("Frequency of the sequence of the 16S rRNA geene in Bacillales after filtering")
-plt.show()
-plt.close()
-
 #Enterobacterales
-enterobacterales_sequence_lengths = []
+enterobacterales_sequence_lengths_after_filtering = []
 
 
 for index, row in df_enterobacterales.iterrows():
-    enterobacterales_sequence_lengths.append(len(row["Nucelotide Sequence"]))
+    enterobacterales_sequence_lengths_after_filtering.append(len(row["Nucelotide Sequence"]))
 
-plt.hist(enterobacterales_sequence_lengths)
+plt.hist(enterobacterales_sequence_lengths_after_filtering)
 plt.xlabel("Sequence Length")
 plt.ylabel("Count")
-plt.title("Frequency of the sequence of the 16S rRNA geene in Enterobacterales after filtering")
+plt.title("Frequency of the sequence of the 16S rRNA geene in Enterobacterales before and after filtering")
 plt.show()
 plt.close()
+
+df_bacillales.to_csv("filtered_bacillales", index=False)
+df_enterobacterales.to_csv("filtered_enterobacterales", index=False)
