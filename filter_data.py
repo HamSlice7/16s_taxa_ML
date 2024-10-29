@@ -15,11 +15,11 @@ rows_to_remove_bacillales = []
 rows_to_remove_enterobacterales = []
 
 for index, row in df_bacillales.iterrows():
-    if row["Nucelotide Sequence"].count("N") >= (len(row["Nucelotide Sequence"]) * 0.05):
+    if row["Nucleotide Sequence"].count("N") >= (len(row["Nucleotide Sequence"]) * 0.05):
         rows_to_remove_bacillales.append(index)
 
 for index, row in df_enterobacterales.iterrows():
-    if row["Nucelotide Sequence"].count("N") >= (len(row["Nucelotide Sequence"]) * 0.05):
+    if row["Nucleotide Sequence"].count("N") >= (len(row["Nucleotide Sequence"]) * 0.05):
         rows_to_remove_enterobacterales.append(index)
 
 print(f"Number of rows containing sequences with more than 5% of unknown nucleotides for df_bacillales:{len(rows_to_remove_bacillales)}")
@@ -32,7 +32,7 @@ bacillales_sequence_lengths = []
 
 
 for index, row in df_bacillales.iterrows():
-    bacillales_sequence_lengths.append(len(row["Nucelotide Sequence"]))
+    bacillales_sequence_lengths.append(len(row["Nucleotide Sequence"]))
 
 plt.hist(bacillales_sequence_lengths)
 plt.xlabel("Sequence Length")
@@ -45,7 +45,7 @@ rows_to_remove_bacillales_sequence_length = []
 
 
 for index,row in df_bacillales.iterrows():
-    if len(row["Nucelotide Sequence"]) <= np.quantile(bacillales_sequence_lengths, 0.10) or len(row["Nucelotide Sequence"]) >= np.quantile(bacillales_sequence_lengths, 0.90):
+    if len(row["Nucleotide Sequence"]) <= np.quantile(bacillales_sequence_lengths, 0.10) or len(row["Nucleotide Sequence"]) >= np.quantile(bacillales_sequence_lengths, 0.90):
         rows_to_remove_bacillales_sequence_length.append(index)
 
 print(rows_to_remove_bacillales_sequence_length)
@@ -61,7 +61,7 @@ bacillales_sequence_lengths_post_filter = []
 
 
 for index, row in df_bacillales.iterrows():
-    bacillales_sequence_lengths_post_filter.append(len(row["Nucelotide Sequence"]))
+    bacillales_sequence_lengths_post_filter.append(len(row["Nucleotide Sequence"]))
 
 plt.hist(bacillales_sequence_lengths_post_filter)
 plt.title("Frequency of the sequence of the 16S rRNA gene in Bacillales before and after filtering") 
@@ -75,7 +75,7 @@ enterobacterales_sequence_lengths = []
 
 
 for index, row in df_enterobacterales.iterrows():
-    enterobacterales_sequence_lengths.append(len(row["Nucelotide Sequence"]))
+    enterobacterales_sequence_lengths.append(len(row["Nucleotide Sequence"]))
 
 plt.hist(enterobacterales_sequence_lengths)
 plt.xlabel("Sequence Length")
@@ -90,7 +90,7 @@ rows_to_remove_enterobacterales_sequence_length = []
 
 
 for index,row in df_enterobacterales.iterrows():
-    if len(row["Nucelotide Sequence"]) <= np.quantile(enterobacterales_sequence_lengths, 0.10) or len(row["Nucelotide Sequence"]) >= np.quantile(enterobacterales_sequence_lengths, 0.90):
+    if len(row["Nucleotide Sequence"]) <= np.quantile(enterobacterales_sequence_lengths, 0.10) or len(row["Nucleotide Sequence"]) >= np.quantile(enterobacterales_sequence_lengths, 0.90):
         rows_to_remove_enterobacterales_sequence_length.append(index)
 
 print(rows_to_remove_enterobacterales_sequence_length)
@@ -105,7 +105,7 @@ enterobacterales_sequence_lengths_after_filtering = []
 
 
 for index, row in df_enterobacterales.iterrows():
-    enterobacterales_sequence_lengths_after_filtering.append(len(row["Nucelotide Sequence"]))
+    enterobacterales_sequence_lengths_after_filtering.append(len(row["Nucleotide Sequence"]))
 
 plt.hist(enterobacterales_sequence_lengths_after_filtering)
 plt.xlabel("Sequence Length")

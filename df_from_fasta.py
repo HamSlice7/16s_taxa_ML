@@ -23,6 +23,6 @@ def df_from_FASTA(fasta_file:str) -> pd.DataFrame:
 
     sequence_tuples = list(zip(sequence_id,sequence_sequence))
 
-    df = pd.DataFrame(sequence_tuples, columns=["Sequence ID", "Nucelotide Sequence"])
+    df = pd.DataFrame(sequence_tuples, columns=["Sequence ID", "Nucleotide Sequence"])
 
     return df
