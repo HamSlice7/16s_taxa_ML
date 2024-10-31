@@ -31,9 +31,10 @@ df_kmers =pd.DataFrame(data=np.zeros((df_combined.shape[0],len(kmer_2))), column
 df_combined_kmers = pd.concat([df_combined, df_kmers], axis=1)
 
 
-#Created a nested for loop to update the kmer count for each kmer for each sequence in df_combined_kmers.
+#Created a nested for loop to update the kmer count for each kmer for each sequence in df_combined_kmers. Divide kmer count by the length of the sequence.
 for index,row in df_combined_kmers.iterrows():
     for kmer in kmer_2:
-        df_combined_kmers.loc[index,[kmer]] = row['Nucleotide Sequence'].count(kmer)
+        df_combined_kmers.loc[index,[kmer]] = round(row['Nucleotide Sequence'].count(kmer)/len(row['Nucleotide Sequence']),3)
+        
         
 df_combined_kmers.to_csv("data_with_2kmer_features.csv", index=False)
